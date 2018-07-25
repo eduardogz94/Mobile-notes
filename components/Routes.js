@@ -4,34 +4,30 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Home from './Home'
 
-import LoginForm from './Auth/Login'
-import SignupForm from './Auth/Signup'
+import NewNote from './Notes/NewNote'
 
 export const Index = createStackNavigator({
-    Home:{
-      screen:Home,
-      navigationOptions:{
-          title:'Railstagram'
-      }
+  Home:{
+    screen:Home,
+    navigationOptions:{
+        title:'Notes'
     }
+  }
 });
 
-export const Login = createStackNavigator({
-    Login:{
-      screen:LoginForm
+export const Noting = createStackNavigator({
+  Note: {
+    screen: NewNote,
+    navigationOptions: {
+      title: 'Add Notes'
     }
-});
-
-export const Signup = createStackNavigator({
-    Signup:{
-      screen:SignupForm
-    }
+  }
 });
 
 export const UserStack = createBottomTabNavigator(
   {
     Home:Index,
-    // Profile:User (NUEVA NOTA)
+    Note:Noting
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -40,11 +36,10 @@ export const UserStack = createBottomTabNavigator(
         let iconName;
         if (routeName == 'Home') {
           iconName = `ios-home${focused ? '' : '-outline'}`;
-        } 
-        // else if (routeName === 'Profile') {
-        //   iconName = `ios-contact${focused ? '' : '-outline'}`;
-        // }
-
+        }
+        else if (routeName == 'Note') {
+          iconName = `ios-add-circle${focused ? '' : '-outline'}`;
+        }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
         return <Ionicons name={iconName} size={25} color={tintColor} />;

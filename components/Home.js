@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements'
+import { ScrollView } from 'react-native';
+import { Card, CardItem, Thumbnail, Body, Left, Button, Right, Icon} from 'native-base'
 
 import Error from './Extra/ErrorBoundary'
 import Note from './Notes/Note'
@@ -9,9 +9,18 @@ export default class Home extends React.Component {
   constructor() {
     super()
     this.state = {
-      notes: {
-        id:1
-      }
+      notes: [
+        {
+          id:1,
+          title:'My Note',
+          description: 'Lorem ipsum flowesrs asdasdasasasd'
+        },
+        {
+          id:2,
+          title:'My Note Destroyer',
+          description: 'Lorem flowers ipsum loasdloasdloasdasd'
+        }
+      ]
     }
   }
   
@@ -23,15 +32,12 @@ export default class Home extends React.Component {
     return (
     <Error>  
       <ScrollView>
-        <Text>sasdasdasdadasd</Text>
-        {/* {this.state.notes.map(note => {
+        {this.state.notes.map(note => {
           return(
-              <Card key={note.id}  
-                  title='HELLO WORLD'
-                  image = {require('../assets/images/index.jpeg')}>
-                <Note note={note}/>
+              <Card key={note.id}>
+                <Note note={note} description={note.description} username={'eg'}/>
               </Card>
-            )})} */}
+            )})}
       </ScrollView>
     </Error>
     );

@@ -7,15 +7,18 @@ export default class Auth extends Component {
   constructor() {
     super()
     this.state = {
-      session: ''
+      username: {
+        notes:[]
+      }
     }
   }  
 
   componentWillMount = () => {
-    this.getItem('session').then(data => {
-        this.state = {
-          session: data
-        }
+    this.getItem('username').then(data => {
+        // this.setState({
+        //   username: data
+        // })
+        console.log(data)
     }).done();
   }
   
@@ -30,9 +33,9 @@ export default class Auth extends Component {
   
   setItem = async (key,item) => {
     try {
-      const data = await AsyncStorage.setItem(key,item)
-      this.state = `{${key}:${data}}`
-      return data;
+      await AsyncStorage.setItem(key,item)
+      this.state = `{${key}:${item}}`
+      console.log(this.state)
     } catch (error) {
       console.log(error)
     }
@@ -40,10 +43,15 @@ export default class Auth extends Component {
 
   multiSet = async (keys,values) => {
     try {
-      console.log(keys)
-      console.log(values)
-      // await AsyncStorage.multiSet(['session', session], ['id', id])
-      // this.state = {session:session, id:id}
+      storage = []
+      for (let index = 0; index < keys.length; index++) {
+        const key = keys[index];
+        const value = values[index];
+        storage.push([key,value])
+      }
+      // const data = await AsyncStorage.multiSet(storage)
+      // return data
+      // this.state = {username:username, id:id}
     } catch (error) {
       console.log(error)
     }
@@ -52,38 +60,31 @@ export default class Auth extends Component {
   resetSession = async () => {
     try{
       await AsyncStorage.clear()
-      this.state = {}
-      console.log(this.state)
-
+      this.setState({username:''})
     } catch (error) {
       console.log(error)
     }
   }  
 
   checkSession() {
-    this.getItem('session').then(data => {
+    this.getItem('username').then(data => {
       if (data !== null) {
         alert(data)
-          return data;
+        return data;
       } else {
-        throw new Error('No session found');
+        throw new Error('No username found');
       }
     }).done()
   }
 
     render() {
     return (
-      <UserContext.Provider value={this.state.session}>
-{/*           
-          <TouchableOpacity onPress={() => this.checkSession()}>
-            <Text style={styles.text} >check session</Text>
-          </TouchableOpacity> */}
+      <UserContext.Provider value={this.state.username}>
           
-          <TouchableOpacity onPress={() => this.resetSession()}>
-            <Text style={styles.text}>reset session</Text>
+          <TouchableOpacity onPress={() => this.checkSession()}>
+            <Text style={styles.text} >check username</Text>
           </TouchableOpacity>
           
-          <Text style={styles.text}>{this.state.session}</Text>
           {this.props.children}
       
       </UserContext.Provider>

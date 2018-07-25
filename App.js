@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Auth, { UserContext } from './components/Auth/Auth';
-import { UserStack, Signup } from './components/Routes'
+import { UserStack } from './components/Routes'
+
 
 export default class App extends React.Component {
   render() {
@@ -11,7 +12,9 @@ export default class App extends React.Component {
         <Auth>
           <UserConsumer>
             {session => (
-                ((session == '') ? <Signup> </Signup> : <UserStack session={session}></UserStack>)
+                ((session == '' || session == null) 
+                    ? <UserStack/> 
+                    : <UserStack session={session}/>)
             )}
           </UserConsumer>
         </Auth>
