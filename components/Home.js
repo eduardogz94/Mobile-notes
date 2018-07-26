@@ -25,14 +25,19 @@ export default class Home extends React.Component {
                     title: value.title,
                     description: value.description
                 }
-                this.setState({ notes: this.state.notes.concat ( note ) })
+                this.setState({ notes: this.state.notes.concat( note ) })
                 })
             })    
         })
     }
 
     newNote(note) {
-        this.setState({ notes: this.state.notes.concat(note)})
+        this.setState({ notes: this.state.notes.concat( note ) })
+    }
+
+    editNote(id) {
+        //  this.props.navigation.navigate('Note', id)
+        alert(id)
     }
   
     render() {
@@ -42,13 +47,13 @@ export default class Home extends React.Component {
                 {this.state.notes.map(note => {
                 return(
                     <Card key={note.id}>
-                        <Note note={note} description={note.description}/>
+                        <Note note={note} description={note.description} edit={this.editNote} />
                     </Card>
                     )})}
             </ScrollView>
         </Error>
         );
     }
-    }
+}
 
 

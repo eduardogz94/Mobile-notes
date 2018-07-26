@@ -14,56 +14,51 @@ export default class User extends Component {
 
     }
 
-    editNote = (id) => {
-        alert(`edit note with id ${id}`)
-    }
+    render() {
+        const { id } = this.props.note;
+        return (
+            <View>
+            <Card>
+                <CardItem>
+                    <Left>
+                        <Body>
+                            <Text note>{this.props.note.title}</Text>
+                            <Text note>{this.props.note.date}</Text>
+                        </Body>     
+                    </Left>
+                </CardItem>
 
-  render() {
-    const { id } = this.props.note;
-      return (
-        <View>
-          <Card>
-              <CardItem>
-                  <Left>
-                    <Body>
-                        <Text note>{this.props.note.title}</Text>
-                        <Text note>Jan 15, 2018</Text>
-                    </Body>     
-                </Left>
-              </CardItem>
-
-                 <CardItem>
-                     <Text>
-                         {this.props.description}
-                     </Text>
-                 </CardItem>
-                <CardItem >
-                  
+                <CardItem>
+                    <Text>
+                        {this.props.description}
+                    </Text>
+                </CardItem>
+                
+                <CardItem >    
                     <Left>
                         <Button transparent>
                             <Ionicons
                                 size={25}  
                                 color={'blue'}
                                 name={'ios-build-outline'}
-                                onPress={() => this.editNote(id)}
+                                onPress={() => this.props.edit(id)}
                                 />
                         </Button>
                     </Left>
-                <Right>
-                    <Button transparent>
-                        <Ionicons
-                            size={25}  
-                            color={'blue'}
-                            name={'ios-close-outline'}
-                            onPress={() => this.deleteNote(id)}
-                            />
-                    </Button>
-                </Right>    
-            </CardItem>
-
+                    <Right>
+                        <Button transparent>
+                            <Ionicons
+                                size={25}  
+                                color={'blue'}
+                                name={'ios-close-outline'}
+                                onPress={() => this.deleteNote(id)}
+                                />
+                        </Button>
+                    </Right>    
+                </CardItem>
             </Card>
         </View>
-      )
-  }
+        )
+    }
 }
 
