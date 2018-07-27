@@ -35,9 +35,8 @@ export default class Home extends React.Component {
         this.setState({ notes: this.state.notes.concat( note ) })
     }
 
-    editNote(id) {
-        //  this.props.navigation.navigate('Note', id)
-        alert(id)
+    editNote = (id) => {
+        this.props.navigation.navigate('Note', { id })
     }
   
     render() {
@@ -47,7 +46,7 @@ export default class Home extends React.Component {
                 {this.state.notes.map(note => {
                 return(
                     <Card key={note.id}>
-                        <Note note={note} description={note.description} edit={this.editNote} />
+                        <Note note={note} description={note.description} edit={() => this.editNote()} />
                     </Card>
                     )})}
             </ScrollView>

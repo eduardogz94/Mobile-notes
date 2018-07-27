@@ -4,7 +4,7 @@ import { Card, CardItem, Body, Left, Button, Right } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-export default class User extends Component {
+export default class Note extends Component {
     
     deleteNote = (id) => {
         AsyncStorage.removeItem(id).then(success => {
@@ -13,6 +13,7 @@ export default class User extends Component {
         })
 
     }
+
 
     render() {
         const { id } = this.props.note;

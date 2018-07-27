@@ -10,23 +10,23 @@ export default class NewNote extends Component {
         description: '',
     }
 
-    componentDidMount() {
-        alert(JSON.stringify(this.props.navigation.state))
+    componentWillUpdate() {
+        alert(JSON.stringify(this.props))
     }
     
     addNote = () => {
         const d = new Date()
         const date = `${d.getDate()}-${(d.getMonth()+1)}-${d.getFullYear()}`
-        AsyncStorage.getItem('1').then(first => {
+        AsyncStorage.getItem('0').then(first => {
             if (first == null) {
-                AsyncStorage.setItem('1', JSON.stringify({
+                AsyncStorage.setItem('0', JSON.stringify({
                     title: this.state.title,
                     description: this.state.description,
                     date
                 })).then(async data => {
-                    await AsyncStorage.setItem('counter', '1')
+                    await AsyncStorage.setItem('counter', '0')
                     alert('saved')
-                    this.props.navigation.navigate('Home',)
+                    this.props.navigation.navigate('Home')
                     Keyboard.dismiss()
                 }).catch(err => {
                     alert(err)
@@ -51,6 +51,10 @@ export default class NewNote extends Component {
     }
 
     render() {
+        const { navigation } = this.props;
+
+        const id = navigation.getParam('id', 'null')
+
         return (
             <ScrollView>
                 <Container>
@@ -58,13 +62,14 @@ export default class NewNote extends Component {
                         <Button bordered onPress={() => this.addNote()}>
                             <Text> Add Note!</Text>
                         </Button>
+                        <Text> { JSON.stringify(id) }</Text>
                         <Textarea 
-                            placeholder='Title for note..' 
+                            value='Title for note..' 
                             rowSpan={1}
                             onChangeText={title => this.setState({title})}
                         />
                         <Textarea 
-                            placeholder='Description for note..' 
+                            value='Description for note..' 
                             rowSpan={5}
                             onChangeText={description => this.setState({description})} 
                         />
