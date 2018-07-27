@@ -3,10 +3,7 @@ import { ScrollView } from 'react-native'
 import { Button } from 'react-native-elements'
 
 import Error from '../Extra/ErrorBoundary'
-import Title from '../Extra/HomeTitle'
-import Input from '../Extra/Inputs'
 
-import { inputs } from '../../assets/css/styles'
 
 export default class EditProfile extends Component {
     constructor() {
@@ -32,8 +29,7 @@ export default class EditProfile extends Component {
     render() {
     return (
         <Error>
-            <ScrollView style={inputs.inputWrapper}>
-                <Title tagline='Edit Note Form'/>
+            <ScrollView >
             </ScrollView>
         </Error>
     )}
