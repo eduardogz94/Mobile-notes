@@ -19,6 +19,16 @@ export default class Home extends React.Component {
         this.getNotes()
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        console.log('called will receive props')
+        if (nextProps !== this.props) {
+            this.setState({
+                notes: []
+            })
+            this.getNotes()
+        }
+    };
+
     getNotes = () => {
         AsyncStorage.getAllKeys((err, keys) => {
             AsyncStorage.multiGet(keys, (err, stores) => {
@@ -26,7 +36,6 @@ export default class Home extends React.Component {
                     // get at each store's key/value so you can work with it
                     let key = store[i][0]
                     let value = JSON.parse(store[i][1])
-                    console.log(value)
                     const note = {
                         id: key,
                         title: value.title,
@@ -47,7 +56,7 @@ export default class Home extends React.Component {
 
     deleteNote = id => {
         AsyncStorage.removeItem(id).then(success => {
-            this.state = {notes:[]}
+            this.state = { notes:[] }
         })
         this.getNotes()
     }

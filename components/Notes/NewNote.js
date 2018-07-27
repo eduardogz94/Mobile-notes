@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, ScrollView, AsyncStorage, Keyboard } from 'react-native'
 import { Container, Form, Textarea, Button, Item, Icon, Label, Input } from 'native-base'
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 import { addStyle } from '../../assets/css/newNote'
 
@@ -13,7 +13,6 @@ export default class NewNote extends Component {
     }
 
     addNote = () => {
-        console.log(this.state)
         const d = new Date()
         const date = `${d.getDate()}-${(d.getMonth()+1)}-${d.getFullYear()}`
         AsyncStorage.getItem('0').then(first => {
@@ -25,7 +24,7 @@ export default class NewNote extends Component {
                 })).then(async data => {
                     await AsyncStorage.setItem('counter', '0')
                     console.log('saved')
-                    this.props.navigation.navigate('Home')
+                    this.props.navigation.navigate('Home', {added:true})
                     Keyboard.dismiss()
                 }).catch(err => {
                     console.log(err)
@@ -40,7 +39,7 @@ export default class NewNote extends Component {
                     })).then(async data => {
                         await AsyncStorage.setItem('counter', new_counter.toString())
                         console.log('saved')
-                        this.props.navigation.navigate('Home')
+                        this.props.navigation.navigate('Home', {added:true})
                     }).catch(err => {
                         console.log(err)
                     })
@@ -50,15 +49,10 @@ export default class NewNote extends Component {
     }
 
     render() {
-        const { navigation } = this.props;
-
-        const id = navigation.getParam('id', 'null')
-
         return (
             <ScrollView style={addStyle.container}>
                 <Container>
                     <Form>  
-                        {/* <Text> { JSON.stringify(id) }</Text> */}
 
                         <Item floatingLabel>
                             <Icon active name='ios-person'/>

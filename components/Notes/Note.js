@@ -31,7 +31,7 @@ export default class Note extends Component {
                             <Button transparent>
                                 <Ionicons
                                     size={25}  
-                                    color={'blue'}
+                                    color={'purple'}
                                     name={'ios-build-outline'}
                                     onPress={() => this.props.edit(id)}
                                     />
@@ -40,8 +40,8 @@ export default class Note extends Component {
                         <Right>
                             <Button transparent>
                                 <Ionicons
-                                    size={25}  
-                                    color={'blue'}
+                                    size={35}  
+                                    color={'purple'}
                                     name={'ios-close-outline'}
                                     onPress={() => this.props.delete(id)}
                                     />
