@@ -16,6 +16,7 @@ export default class Home extends React.Component {
     }
   
     componentDidMount() {
+        // AsyncStorage.clear()
         this.getNotes()
     }
 
@@ -26,16 +27,17 @@ export default class Home extends React.Component {
                     // get at each store's key/value so you can work with it
                     let key = store[i][0]
                     let value = JSON.parse(store[i][1])
-                    console.log(value)
                     const note = {
                         id: key,
                         title: value.title,
                         description: value.description,
                         date: value.date
                     }
-                    this.setState({
-                        notes: this.state.notes.concat(note)
-                    })
+                    if (key != 'counter') {
+                        this.setState({
+                            notes: this.state.notes.concat(note)
+                        })
+                    }
                 })
             })
         })

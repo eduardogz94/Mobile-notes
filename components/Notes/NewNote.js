@@ -24,22 +24,19 @@ export default class NewNote extends Component {
                     date
                 })).then(async data => {
                     await AsyncStorage.setItem('counter', '0')
-                    console.log('saved')
                     this.props.navigation.navigate('Home')
-                    Keyboard.dismiss()
                 }).catch(err => {
                     console.log(err)
                 })
             } else {
                 AsyncStorage.getItem('counter').then(counter => {
-                    const new_counter = +counter+1
+                    const new_counter = +counter + 1
                     AsyncStorage.setItem(new_counter.toString(), JSON.stringify({
                         title: this.state.title,
                         description: this.state.description,
                         date
                     })).then(async data => {
                         await AsyncStorage.setItem('counter', new_counter.toString())
-                        console.log('saved')
                         this.props.navigation.navigate('Home')
                     }).catch(err => {
                         console.log(err)
