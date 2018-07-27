@@ -42,9 +42,11 @@ export default class Home extends React.Component {
                         description: value.description,
                         date: value.date
                     }
-                    this.setState({
-                        notes: this.state.notes.concat(note)
-                    })
+                    if (key != 'counter') {
+                        this.setState({
+                            notes: this.state.notes.concat(note)
+                        })
+                    }
                 })
             })
         })
