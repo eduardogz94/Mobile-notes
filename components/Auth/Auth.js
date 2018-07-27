@@ -7,16 +7,14 @@ export default class Auth extends Component {
   constructor() {
     super()
     this.state = {
-      username: {
         notes:[]
-      }
     }
   }  
 
   componentWillMount = () => {
-    this.getItem('username').then(data => {
+    this.getItem('notes').then(data => {
         // this.setState({
-        //   username: data
+        //   notes: data
         // })
         console.log(data)
     }).done();
@@ -51,7 +49,7 @@ export default class Auth extends Component {
       }
       // const data = await AsyncStorage.multiSet(storage)
       // return data
-      // this.state = {username:username, id:id}
+      // this.state = {notes:notes, id:id}
     } catch (error) {
       console.log(error)
     }
@@ -60,29 +58,29 @@ export default class Auth extends Component {
   resetSession = async () => {
     try{
       await AsyncStorage.clear()
-      this.setState({username:''})
+      this.setState({notes:''})
     } catch (error) {
       console.log(error)
     }
   }  
 
   checkSession() {
-    this.getItem('username').then(data => {
+    this.getItem('notes').then(data => {
       if (data !== null) {
         alert(data)
         return data;
       } else {
-        throw new Error('No username found');
+        throw new Error('No notes found');
       }
     }).done()
   }
 
     render() {
     return (
-      <UserContext.Provider value={this.state.username}>
+      <UserContext.Provider value={this.state.notes}>
           
           <TouchableOpacity onPress={() => this.checkSession()}>
-            <Text style={styles.text} >check username</Text>
+            <Text style={styles.text} >check notes</Text>
           </TouchableOpacity>
           
           {this.props.children}
